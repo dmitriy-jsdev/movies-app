@@ -1,0 +1,16 @@
+.spinner {
+  transform: scale(5);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@media (max-width: 974px) {
+  .spinner {
+    transform: scale(4);
+  }
+}
