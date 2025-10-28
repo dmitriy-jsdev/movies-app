@@ -1,8 +1,8 @@
 import {
   useState,
-  useMemo,
   useEffect,
   useCallback,
+  useRef,
   type ChangeEvent,
   type JSX,
 } from 'react';
@@ -21,13 +21,15 @@ export default function SearchPanel({ onSearch, onRated }: Props): JSX.Element {
   );
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const debouncedOnSearch = useMemo(() => debounce(onSearch, 1000), [onSearch]);
-  useEffect(() => () => debouncedOnSearch.cancel(), [debouncedOnSearch]);
+  const debouncedOnSearchRef = useRef<ReturnType<typeof debounce>>();
+  useEffect(() => {
+    debouncedOnSearchRef.current = debounce(onSearch, 1000);
+    return () => debouncedOnSearchRef.current?.cancel();
+  }, [onSearch]);
 
   const handleButtonClick = useCallback(
     (buttonName: 'search' | 'rated') => {
       setActiveButton(buttonName);
-
       if (buttonName === 'search') {
         onSearch(searchTerm);
       } else {
@@ -37,14 +39,16 @@ export default function SearchPanel({ onSearch, onRated }: Props): JSX.Element {
     [onSearch, onRated, searchTerm],
   );
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchTerm(value);
-
-    if (value.trim() || value === '') {
-      debouncedOnSearch(value.trim());
-    }
-  };
+  const handleSearchChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setSearchTerm(value);
+      if (value.trim() || value === '') {
+        debouncedOnSearchRef.current?.(value.trim());
+      }
+    },
+    [],
+  );
 
   return (
     <div className={styles.searchPanel}>
