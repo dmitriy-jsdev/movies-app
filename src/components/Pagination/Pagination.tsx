@@ -1,10 +1,10 @@
 import type { PaginationProps } from 'antd';
-import { Pagination } from 'antd';
+import { Pagination as Paginator } from 'antd';
 import './Pagination.module.css';
 
 type Props = Required<Pick<PaginationProps, 'current' | 'total' | 'onChange'>>;
 
-export default function PaginationComponent({
+export default function Pagination({
   current,
   total,
   onChange,
@@ -15,13 +15,15 @@ export default function PaginationComponent({
   const adjustedTotal = Math.min(total, maxTotal);
   const shouldShowPagination = !(current === 1 && total <= pageSize);
 
-  return shouldShowPagination ? (
-    <Pagination
+  if (!shouldShowPagination) return null;
+
+  return (
+    <Paginator
       current={current}
       total={adjustedTotal}
       onChange={onChange}
       pageSize={pageSize}
       showSizeChanger={false}
     />
-  ) : null;
+  );
 }

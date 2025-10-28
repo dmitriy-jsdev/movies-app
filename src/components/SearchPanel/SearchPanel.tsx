@@ -47,10 +47,10 @@ export default function SearchPanel({ onSearch, onRated }: Props): JSX.Element {
   };
 
   return (
-    <div className={styles['search-panel']}>
-      <div className={styles['button-box']}>
+    <div className={styles.searchPanel}>
+      <div className={styles.buttonBox}>
         <button
-          className={`${styles['search-btn']} ${
+          className={`${styles.searchBtn} ${
             activeButton === 'search' ? styles.active : ''
           }`}
           type="button"
@@ -59,7 +59,7 @@ export default function SearchPanel({ onSearch, onRated }: Props): JSX.Element {
           Search
         </button>
         <button
-          className={`${styles['rated-btn']} ${
+          className={`${styles.ratedBtn} ${
             activeButton === 'rated' ? styles.active : ''
           }`}
           type="button"
@@ -70,7 +70,7 @@ export default function SearchPanel({ onSearch, onRated }: Props): JSX.Element {
       </div>
       {activeButton === 'search' && (
         <Input
-          className={styles['search-input']}
+          className={styles.searchInput}
           placeholder="Type to search..."
           value={searchTerm}
           onChange={handleSearchChange}

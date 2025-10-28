@@ -1,11 +1,13 @@
 import { useEffect, useState, type JSX } from 'react';
 import TrimText from '../../utils/TrimText';
+import styles from './TruncatedTitle.module.css';
+
+const getWidth = (): number =>
+  typeof window !== 'undefined' ? window.innerWidth : 0;
 
 type Props = { title: string };
 
 export default function TruncatedTitle({ title }: Props): JSX.Element {
-  const getWidth = () =>
-    typeof window !== 'undefined' ? window.innerWidth : 0;
   const [screenWidth, setScreenWidth] = useState<number>(getWidth());
 
   useEffect(() => {
@@ -15,8 +17,8 @@ export default function TruncatedTitle({ title }: Props): JSX.Element {
     return () => window.removeEventListener('resize', updateScreenWidth);
   }, []);
 
-  const maxTitleLength = screenWidth <= 450 ? 25 : 35;
+  const maxTitleLength = screenWidth <= 450 ? 25 : 30;
   const shortTitle = TrimText(title, maxTitleLength);
 
-  return <h5 className="movieTitle">{shortTitle}</h5>;
+  return <h5 className={styles.movieTitle}>{shortTitle}</h5>;
 }

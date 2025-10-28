@@ -1,5 +1,6 @@
 import MovieCard from '../MovieCard/MovieCard';
-import { Consumer, MovieItem } from '../../services/Context';
+import { Consumer } from '../../services/Context';
+import type { Movie } from '../../services/Context';
 import styles from './MovieList.module.css';
 
 type Props = {
@@ -23,18 +24,18 @@ export default function MovieList({
 }: Props) {
   return (
     <Consumer>
-      {(movieList: MovieItem[]) => (
-        <div className={styles['movie-list']}>
+      {(movieList: Movie[]) => (
+        <div className={styles.movieList}>
           {movieList.length > 0 ? (
-            movieList.map((movie: MovieItem) => (
+            movieList.map((movie: Movie) => (
               <MovieCard
                 key={movie.id}
                 movieId={movie.id}
                 movieTitle={movie.title}
-                releaseDate={movie.release_date}
+                releaseDate={movie.releaseDate}
                 description={movie.overview}
-                imgPath={movie.poster_path ?? undefined}
-                rating={movie.vote_average}
+                imgPath={movie.posterPath ?? undefined}
+                rating={movie.voteAverage}
                 movieDBApi={movieDBApi}
                 guestSessionId={guestSessionId}
                 userRating={userRatings[movie.id]}
@@ -46,7 +47,7 @@ export default function MovieList({
               />
             ))
           ) : (
-            <p className={styles['empty-result']}>No movies found.</p>
+            <p className={styles.emptyResult}>No movies found.</p>
           )}
         </div>
       )}

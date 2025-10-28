@@ -40,7 +40,7 @@
   margin-top: 9px;
 }
 
-.genresList__item {
+.genresListItem {
   font-size: 12px;
   list-style: none;
   margin-right: 17px;
@@ -60,7 +60,6 @@
   margin: 0;
 }
 
-/* Ant Design — глобально */
 :global(.ant-rate) {
   display: flex;
   align-items: center;
@@ -91,19 +90,19 @@
   font-size: 14px;
 }
 
-.rating-very-low {
+.ratingVeryLow {
   border: 3px solid #E90000;
 }
 
-.rating-low {
+.ratingLow {
   border: 3px solid #E97E00;
 }
 
-.rating-mid {
+.ratingMid {
   border: 3px solid #E9D100;
 }
 
-.rating-high {
+.ratingHigh {
   border: 3px solid #66E900;
 }
 

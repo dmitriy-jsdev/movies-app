@@ -1,7 +1,6 @@
-// src/services/MovieDBapi.ts
 export type Genre = { id: number; name: string };
 
-export type Movie = {
+export type ApiMovie = {
   id: number;
   title: string;
   release_date: string;
@@ -9,7 +8,7 @@ export type Movie = {
   poster_path: string | null;
   vote_average: number;
   genre_ids?: number[];
-  genres?: Genre[];
+  genres: Genre[];
 };
 
 type PagedResponse<T> = {
@@ -22,7 +21,6 @@ type PagedResponse<T> = {
 export default function MovieDBapi() {
   const baseApi = 'https://api.themoviedb.org/3';
 
-  // webpack/CRA-совместимый способ получать ключ
   const token =
     process.env.REACT_APP_TMDB_TOKEN ?? 'ad8adbb06e53c3f9318605818058225c';
 
@@ -35,19 +33,19 @@ export default function MovieDBapi() {
     return res.json() as Promise<T>;
   };
 
-  const getMovie = (id: number): Promise<Movie> =>
-    getResource<Movie>(`/movie/${id}`);
+  const getMovie = (id: number): Promise<ApiMovie> =>
+    getResource<ApiMovie>(`/movie/${id}`);
 
-  const getPopularMovies = (page: number): Promise<PagedResponse<Movie>> =>
-    getResource<PagedResponse<Movie>>(
+  const getPopularMovies = (page: number): Promise<PagedResponse<ApiMovie>> =>
+    getResource<PagedResponse<ApiMovie>>(
       `/movie/popular?language=en-US&page=${page}`,
     );
 
   const searchMovies = (
     query: string,
     page: number,
-  ): Promise<PagedResponse<Movie>> =>
-    getResource<PagedResponse<Movie>>(
+  ): Promise<PagedResponse<ApiMovie>> =>
+    getResource<PagedResponse<ApiMovie>>(
       `/search/movie?query=${encodeURIComponent(
         query,
       )}&language=en-US&page=${page}`,

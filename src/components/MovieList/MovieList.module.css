@@ -1,4 +1,4 @@
-.movie-list {
+.movieList {
     display: flex;
     flex-wrap: wrap;
     max-width: 1010px;
@@ -7,10 +7,10 @@
 }
 
 @media (max-width: 974px) {
-    .movie-list {
+    .movieList {
         display: block;
     }
-    .empty-result {
+    .emptyResult {
     display: block;
     margin: 0 auto;
     width: 116px;

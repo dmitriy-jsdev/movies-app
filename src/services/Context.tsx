@@ -2,16 +2,16 @@ import { createContext } from 'react';
 
 export type MovieGenre = { id: number; name: string };
 
-export type MovieItem = {
+export type Movie = {
   id: number;
   title: string;
-  release_date: string;
+  releaseDate: string;
   overview: string;
-  poster_path: string | null;
-  vote_average: number;
+  posterPath: string | null;
+  voteAverage: number;
   genres: MovieGenre[];
 };
 
-const { Provider, Consumer } = createContext<MovieItem[]>([]);
+const { Provider, Consumer } = createContext<Movie[]>([]);
 
 export { Provider, Consumer };

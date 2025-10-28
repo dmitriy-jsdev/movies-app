@@ -1,13 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import MovieDBapi, {
-  type MovieDbApi,
-  type Genre,
-  type Movie,
-} from '../../services/MovieDBapi';
-import type { MovieItem } from '../../services/Context';
+import { api, type Genre, type ApiMovie } from '../../services/api';
+import { type Movie } from '../../services/Context';
 
 export function useMoviesController() {
-  const [movieList, setMovieList] = useState<MovieItem[]>([]);
+  const [movieList, setMovieList] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -18,10 +14,6 @@ export function useMoviesController() {
   const [showOnlyRated, setShowOnlyRated] = useState<boolean>(false);
   const [searchPage, setSearchPage] = useState<number>(1);
   const [ratedPage, setRatedPage] = useState<number>(1);
-
-  const apiRef = useRef<MovieDbApi | null>(null);
-  if (apiRef.current === null) apiRef.current = MovieDBapi();
-  const api = apiRef.current!;
 
   const didMountUpdateRef = useRef<boolean>(false);
   const skipNextPageEffectRef = useRef<boolean>(false);
@@ -40,13 +32,13 @@ export function useMoviesController() {
           ? await api.searchMovies(term, page)
           : await api.getPopularMovies(page);
 
-        const mapped: MovieItem[] = data.results.map((m: Movie) => ({
+        const mapped: Movie[] = data.results.map((m: ApiMovie) => ({
           id: m.id,
           title: m.title,
-          release_date: m.release_date,
+          releaseDate: m.release_date,
           overview: m.overview,
-          poster_path: m.poster_path,
-          vote_average: m.vote_average,
+          posterPath: m.poster_path,
+          voteAverage: m.vote_average,
           genres: (m.genre_ids ?? [])
             .map((gid) => allGenres.find((g) => g.id === gid))
             .filter(Boolean) as Genre[],
@@ -62,7 +54,7 @@ export function useMoviesController() {
         setLoading(false);
       }
     },
-    [api],
+    [],
   );
 
   const fetchRatedMovies = useCallback(
@@ -81,13 +73,13 @@ export function useMoviesController() {
         currentRatedMovieIds.map(async (movieIdStr) => {
           const movieId = Number(movieIdStr);
           const m = await api.getMovie(movieId);
-          const item: MovieItem = {
+          const item: Movie = {
             id: m.id,
             title: m.title,
-            release_date: m.release_date,
+            releaseDate: m.release_date,
             overview: m.overview,
-            poster_path: m.poster_path ?? null,
-            vote_average: m.vote_average,
+            posterPath: m.poster_path ?? null,
+            voteAverage: m.vote_average,
             genres: (m.genres ?? []) as Genre[],
           };
           return item;
@@ -100,7 +92,7 @@ export function useMoviesController() {
       setShowOnlyRated(true);
       setTotalResults(ratedMovieIds.length);
     },
-    [api, currentPage],
+    [currentPage],
   );
 
   useEffect(() => {
@@ -116,7 +108,7 @@ export function useMoviesController() {
     return () => {
       canceled = true;
     };
-  }, [api, performMovieFetch]);
+  }, [performMovieFetch]);
 
   useEffect(() => {
     if (!didMountUpdateRef.current) {

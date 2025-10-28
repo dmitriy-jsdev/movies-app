@@ -1,23 +1,23 @@
-.search-panel {
+.searchPanel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 19px 0 34px;
 }
 
-.button-box {
+.buttonBox {
     display: flex;
     justify-content: center;
     margin-bottom: 19px;
     border-bottom:#000 3px;
 }
 
-.search-btn {
+.searchBtn {
     margin-right: 10px;
 }
   
-.rated-btn,
-.search-btn {
+.ratedBtn,
+.searchBtn {
     position: relative;
     font-size: 14px;
     line-height: 22px;
@@ -26,13 +26,13 @@
     background: none;
 }
 
-.search-btn:hover,
-.rated-btn:hover {
+.searchBtn:hover,
+.ratedBtn:hover {
     opacity: 0.8;
     color: #1890FF;
 }
 
-.search-btn.active::after, .rated-btn.active::after {
+.searchBtn.active::after, .ratedBtn.active::after {
     content: '';
     display: block;
     width: 100%;
@@ -43,18 +43,18 @@
     left: 0;
   }
 
-.search-btn.active, .rated-btn.active {
+.searchBtn.active, .ratedBtn.active {
     color: #1890FF;
 }
   
-.search-input {
+.searchInput {
     display: block;
     max-width: 938px;
     max-height: 40px;
     padding: 9px 12px;
 }
 
-.search-input {
+.searchInput {
     font-size: 16px;
     line-height: 22px;
     letter-spacing: 0px;
@@ -62,14 +62,8 @@
 }
 
 @media (max-width: 974px) {
-    .ant-input {
-        width: 451px;
-        margin: 0 auto;
-    }
+  :global(.ant-input) { width: 451px; margin: 0 auto; }
 }
-
 @media (max-width: 450px) {
-    .ant-input {
-        width: 388px;
-    }
+  :global(.ant-input) { width: 388px; }
 }

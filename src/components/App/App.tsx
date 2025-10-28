@@ -2,7 +2,7 @@ import { Alert } from 'antd';
 import { Offline, Online } from 'react-detect-offline';
 import MovieList from '../MovieList/MovieList';
 import SearchPanel from '../SearchPanel/SearchPanel';
-import PaginationComponent from '../Pagination/Pagination';
+import Pagination from '../Pagination/Pagination';
 import Spinner from '../Spinner/Spinner';
 import { Provider } from '../../services/Context';
 import { useMoviesController } from './useMoviesController';
@@ -47,7 +47,7 @@ export default function App(): JSX.Element {
             />
           )}
           {!loading && !error && (
-            <PaginationComponent
+            <Pagination
               current={currentPage}
               total={totalResults}
               onChange={handlePageChange}

@@ -1,0 +1,13 @@
+.movieTitle {
+  width: 190px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+@media (max-width: 450px) {
+  .movieTitle {
+    display: inline-block;
+    width: 250px;
+  }
+}
