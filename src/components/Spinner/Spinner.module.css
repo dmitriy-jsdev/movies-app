@@ -14,3 +14,15 @@
     transform: scale(4);
   }
 }
+
+@media (max-width: 375px) {
+  .spinner {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .spinner {
+    margin-left: 45px;
+  }
+}

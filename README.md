@@ -10,10 +10,10 @@
 - Пагинация результатов (до 500 страниц)
 - Вкладки: **Search** и **Rated**
 - Оценка фильма (гостевая сессия TMDB)
-- Индикатор **Offline/Online**
+- Индикатор сети **Offline/Online**
 - Стили через **CSS Modules**
 
-## 🧰 Стек
+## 🧰 Стек 
 
 - React 18, **TypeScript**
 - CRA (react-scripts 5)
